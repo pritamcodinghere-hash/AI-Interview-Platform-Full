@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+target/
+*.class
+*.jar
+!mvnw-wrapper.jar
+
+# Build output
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database (local dev)
+backend/data/
