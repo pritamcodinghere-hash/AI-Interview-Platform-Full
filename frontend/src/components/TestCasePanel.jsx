@@ -1,19 +1,8 @@
-import { useState, useEffect } from "react";
-
 function TestCasePanel({ question }) {
 
-    const [input, setInput] = useState("");
-    const [output, setOutput] = useState("");
-
-    useEffect(() => {
-
-        if (!question) return;
-
-        setInput(question.input || "No Input");
-
-        setOutput(question.output || "No Output");
-
-    }, [question]);
+    const hasQuestion = question && typeof question === "object";
+    const input = hasQuestion ? (question.input || "No Input") : "";
+    const output = hasQuestion ? (question.output || "No Output") : "";
 
     return (
 

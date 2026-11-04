@@ -50,7 +50,10 @@ public class SecurityConfig {
                                 "/api/gemini/**",
                                 "/api/resume/**",
                                 "/api/report/**",
-                                "/api/reports/**"
+                                "/api/reports/**",
+                                "/api/learn/**",
+                                "/api/weekly-test/**",
+                                "/api/users/**"
                         ).authenticated()
                         .anyRequest().authenticated()
                 )

@@ -1,29 +1,13 @@
 import { useState, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import api from "../services/api";
+import { getCasesForQuestion } from "../utils/pickCases";
+import { markSolved } from "../utils/complexity";
 
-function EditorPanel({ setOutput, input }) {
+function EditorPanel({ setOutput, input, question, code, setCode, language, setLanguage, defaultCode }) {
 
-    const [language, setLanguage] = useState("java");
     const [theme, setTheme] = useState("vs-dark");
 
-    const defaultCode = `import java.util.*;
-
-public class Solution {
-
-    public static void main(String[] args){
-
-        Scanner sc = new Scanner(System.in);
-
-        String s = sc.nextLine();
-
-        System.out.println(new StringBuilder(s).reverse());
-
-    }
-
-}`;
-
-    const [code, setCode] = useState(defaultCode);
     const abortRef = useRef(null);
     const [running, setRunning] = useState(false);
 
@@ -73,7 +57,17 @@ public class Solution {
         if (running) return;
         setRunning(true);
         try {
-            const response = await api.post("/submission", { code, language });
+            const questionId = question && typeof question === "object" ? question.id : null;
+            const cases = questionId != null ? getCasesForQuestion(questionId) : [];
+            const payload = { code, language };
+            if (question && typeof question === "object") payload.questionTitle = question.title;
+            if (cases.length > 0) payload.testCases = cases;
+            const response = await api.post("/submission", payload, { timeout: 120000 });
+
+            // Track progress: solved when every test case passes.
+            if (response.data?.total > 0 && response.data.passed === response.data.total) {
+                if (payload.questionTitle) markSolved(payload.questionTitle);
+            }
 
             let result = "";
 
@@ -144,7 +138,6 @@ Actual : ${test.actual}
         setOutput("Editor Reset Successfully.");
 
     };
-
     // ================= UI =================
 
     return (

@@ -569,4 +569,47 @@ Answer:
         return callAI(prompt);
     }
 
+    /**
+     * Learn Hub tutor — answers any learning question with a detailed lesson.
+     */
+    public String askTutor(String question) {
+        String prompt = """
+                You are a world-class tutor inside an "AI Learn Hub" for software engineers preparing
+                for technical interviews.
+
+                Teach the topic the user asks about as a complete, interview-ready lesson.
+
+                Rules:
+                - Start with a one-line introduction of the topic.
+                - Use short paragraphs and bullet points.
+                - Include at least one code example (use 4-space indented code blocks).
+                - Mention common interview questions about this topic.
+                - Cover time/space complexity where relevant.
+                - Be thorough but readable. Use **bold** for key terms and `code` for identifiers.
+                - If the user asks a follow-up, build on the earlier conversation.
+
+                Topic / question:
+                %s
+                """.formatted(question);
+        return callAI(prompt);
+    }
+
+    /**
+     * Returns ONLY a compact complexity verdict (for the coding page's complexity panel).
+     */
+    public String complexityOnly(String code, String language) {
+        String prompt = """
+                Analyze the time and space complexity of this %s solution.
+
+                Return EXACTLY this compact format, no other text:
+
+                Time: O(...)- Space: O(...)
+                Verdict: <one short sentence on whether it is optimal or can be improved>
+
+                Code:
+                %s
+                """.formatted(language == null ? "" : language, code);
+        return callAI(prompt);
+    }
+
 }

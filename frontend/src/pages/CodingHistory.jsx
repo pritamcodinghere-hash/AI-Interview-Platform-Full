@@ -6,10 +6,6 @@ function CodingHistory() {
 
   const [attempts, setAttempts] = useState([]);
 
-  useEffect(() => {
-    loadHistory();
-  }, []);
-
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const loadHistory = async () => {
@@ -24,6 +20,11 @@ function CodingHistory() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const id = setTimeout(() => { loadHistory(); }, 0);
+    return () => clearTimeout(id);
+  }, []);
 
   return (
 

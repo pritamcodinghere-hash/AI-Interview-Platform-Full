@@ -24,7 +24,14 @@ public class CodeExecutionController {
         if (request.getCode() == null || request.getCode().isBlank()) {
             return ResponseEntity.badRequest().body(Map.of("message", "Code is required"));
         }
-        String output = service.executeJava(request.getCode(), request.getInput());
+        String output;
+        try {
+            output = service.executeJava(request.getCode(), request.getInput());
+        } catch (RuntimeException e) {
+            output = e.getMessage() == null ? "Runtime Error" : e.getMessage();
+        } catch (Exception e) {
+            output = "Runtime Error: " + (e.getMessage() == null ? e.getClass().getSimpleName() : e.getMessage());
+        }
         boolean success = !output.startsWith("Compilation Error") && !output.startsWith("Runtime Error") && !output.startsWith("Security Error") && !output.startsWith("Exception");
         return ResponseEntity.ok(new RunCodeResponse(output, success));
     }

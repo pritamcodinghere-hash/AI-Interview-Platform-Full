@@ -21,12 +21,6 @@ function Report() {
         }
     };
 
-    useEffect(() => {
-
-        loadLatestReport();
-
-    }, []);
-
     const loadLatestReport = async () => {
         try {
             const res = await api.get("/reports");
@@ -40,6 +34,13 @@ function Report() {
             setError(err.response?.data?.message || "Failed to load reports");
         }
     };
+
+    useEffect(() => {
+
+        const id = setTimeout(() => { loadLatestReport(); }, 0);
+        return () => clearTimeout(id);
+
+    }, []);
 
     return (
 

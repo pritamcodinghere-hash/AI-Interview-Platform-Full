@@ -64,6 +64,15 @@ public class GeminiController {
         try { return ResponseEntity.ok(geminiService.analyzeComplexity(require(request,"code"))); }
         catch (IllegalArgumentException e) { return ResponseEntity.badRequest().body(Map.of("message", e.getMessage())); }
     }
+    @PostMapping("/complexity-only")
+    public ResponseEntity<?> complexityOnly(@RequestBody Map<String,String> request){
+        try {
+            String code = require(request, "code");
+            String language = request.getOrDefault("language", "java");
+            return ResponseEntity.ok(Map.of("analysis", geminiService.complexityOnly(code, language)));
+        }
+        catch (IllegalArgumentException e) { return ResponseEntity.badRequest().body(Map.of("message", e.getMessage())); }
+    }
     @PostMapping("/dryrun")
     public ResponseEntity<?> dryRun(@RequestBody Map<String,String> request){
         try { return ResponseEntity.ok(geminiService.dryRunCode(require(request,"code"))); }

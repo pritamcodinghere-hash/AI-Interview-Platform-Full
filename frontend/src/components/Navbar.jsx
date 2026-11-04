@@ -3,7 +3,7 @@ import { FaBell, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-    let name = "Happy";
+    let name;
     try {
         name = localStorage.getItem("name") || "Happy";
     } catch {

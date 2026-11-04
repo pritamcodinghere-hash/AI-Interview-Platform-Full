@@ -19,7 +19,7 @@ import {
 import "../styles/Dashboard.css";
 
 function Dashboard() {
-  let name = "Happy";
+  let name;
   try {
     name = localStorage.getItem("name") || "Happy";
   } catch {
@@ -36,10 +36,6 @@ function Dashboard() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadDashboard();
-  }, []);
-
   const loadDashboard = async () => {
     setLoading(true);
     setError("");
@@ -53,6 +49,11 @@ function Dashboard() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const id = setTimeout(() => { loadDashboard(); }, 0);
+    return () => clearTimeout(id);
+  }, []);
 
   return (
     <div className="dashboard">
