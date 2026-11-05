@@ -184,7 +184,7 @@ cd backend
 The API is live at **http://localhost:8080**
 H2 console at **http://localhost:8080/h2-console** (JDBC URL: `jdbc:h2:mem:interviewdb`, user: `sa`)
 
-### 2️⃣ Start the Frontend (port `5173`)
+### 2️⃣ Start the Frontend (port `8000`)
 
 ```bash
 cd frontend
@@ -192,7 +192,7 @@ npm install
 npm run dev
 ```
 
-Open **http://localhost:5173** → you'll be redirected to the login page.
+Open **http://localhost:8000** → you'll be redirected to the login page.
 
 ### 3️⃣ Create an account
 

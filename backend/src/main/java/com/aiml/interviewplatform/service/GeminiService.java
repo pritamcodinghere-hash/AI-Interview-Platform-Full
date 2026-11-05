@@ -46,7 +46,7 @@ public class GeminiService {
 
         headers.setBearerAuth(apiKey);
 
-        headers.set("HTTP-Referer", "http://localhost:5173");
+        headers.set("HTTP-Referer", "http://localhost:8000");
 
         headers.set("X-Title", "AI Interview Platform");
 
