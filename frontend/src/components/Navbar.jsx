@@ -1,6 +1,6 @@
 import { FaBell, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 function Navbar() {
     let name;
@@ -10,6 +10,14 @@ function Navbar() {
         name = "Happy";
     }
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const links = [
+        { to: "/dashboard", label: "🏠 Dashboard" },
+        { to: "/learn", label: "📚 Learn Hub" },
+        { to: "/weekly-test", label: "🗓️ Weekly Test" },
+        { to: "/coding", label: "💻 Coding" },
+    ];
 
     const logout = () => {
         try {
@@ -28,6 +36,18 @@ function Navbar() {
 
             <div className="logo">
                 🤖 AI Interview Platform
+            </div>
+
+            <div className="nav-links">
+                {links.map((l) => (
+                    <Link
+                        key={l.to}
+                        to={l.to}
+                        className={`nav-link ${location.pathname === l.to ? "active" : ""}`}
+                    >
+                        {l.label}
+                    </Link>
+                ))}
             </div>
 
             <div className="nav-right">

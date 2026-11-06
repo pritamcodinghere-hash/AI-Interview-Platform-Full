@@ -142,6 +142,22 @@ function Dashboard() {
           link="/resume"
         />
 
+        <FeatureCard
+          icon="📚"
+          title="AI Learn Hub"
+          description="Chat with an AI tutor on any topic — or talk to it by voice."
+          button="Start Learning"
+          link="/learn"
+        />
+
+        <FeatureCard
+          icon="🗓️"
+          title="Weekly Test"
+          description="Timed proctored test: coding round + 60 MCQs."
+          button="Take Weekly Test"
+          link="/weekly-test"
+        />
+
       </section>
 
       <section className="chart-section">
